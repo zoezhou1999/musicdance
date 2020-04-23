@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -55,7 +56,9 @@ public class LearnNotes extends AppCompatActivity {
             R.drawable.ic_music_note_orange_400dp,
             R.drawable.ic_music_note_pink_400dp,
             R.drawable.ic_music_note_purple_400dp,
-            R.drawable.ic_music_note_white_400dp
+            R.drawable.ic_music_note_white_400dp,
+            R.drawable.ic_music_note_white_400dp,
+            R.drawable.ic_music_note_purple_400dp
     };
     private int[] texts={1,2,3,4,5,6,7,8,9};
 
@@ -76,19 +79,48 @@ public class LearnNotes extends AppCompatActivity {
 
         int [] poles={0,0,1,0,1,0,0,1,0,1,0,1,0,0,1};
 
-        ImageView pole1=findViewById(R.id.pole1); //0
-        ImageView pole2=findViewById(R.id.pole2); //1
+        final ImageView pole1=findViewById(R.id.pole1); //0
+        final ImageView pole2=findViewById(R.id.pole2); //1
         ImageView pole3=findViewById(R.id.pole3); //0
         ImageView pole4=findViewById(R.id.pole4); //0
 
-        int whiteWidth=pole1.getWidth(); ///image
-        int whiteHeight=pole1.getHeight(); //image
-        int brownWidth=pole1.getWidth(); //image
-        int brownHeight=pole1.getHeight(); //iamge
-        System.out.print("whiteWidth "+Integer.toString(whiteWidth));
-        System.out.print("whiteHeight "+Integer.toString(whiteHeight));
-        System.out.print("brownWidth "+Integer.toString(brownWidth));
-        System.out.print("brownHeight "+Integer.toString(brownHeight));
+        final int[] whiteWidth = new int[1];// = {pole1.getMeasuredWidth()};//pole1.getDrawable().getIntrinsicWidth();//pole1.getWidth(); ///image
+        final int[] whiteHeight = new int[1];// = {pole1.getMeasuredHeight()};//pole1.getDrawable().getIntrinsicHeight();//.getHeight(); //image
+        final int[] brownWidth = new int[1];//=pole2.getMeasuredWidth();//pole2.getDrawable().getIntrinsicWidth(); //image
+        final int[] brownHeight = new int[1];//=pole2.getMeasuredHeight();//pole2.getDrawable().getIntrinsicHeight(); //iamge
+
+        whiteHeight[0] = (int)(374*2);//142;pole1.getMeasuredHeight();
+        whiteWidth[0] = (int)(142*1.5);//pole1.getMeasuredWidth();
+        brownHeight[0] = (int)(310*2);//pole2.getMeasuredHeight();
+        brownWidth[0] = (int)(142*1.5);//pole2.getMeasuredWidth();
+
+//
+//        ViewTreeObserver viewTreeObserver1 = pole1.getViewTreeObserver();
+//        viewTreeObserver1.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            public boolean onPreDraw() {
+//                pole1.getViewTreeObserver().removeOnPreDrawListener(this);
+//                whiteHeight[0] = pole1.getMeasuredHeight();
+//                whiteWidth[0] = pole1.getMeasuredWidth();
+////                viewTreeObserver1.setText("Height: " + finalHeight + " Width: " + finalWidth);
+//                return true;
+//            }
+//        });
+//        ViewTreeObserver viewTreeObserver2 = pole2.getViewTreeObserver();
+//        viewTreeObserver2.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            public boolean onPreDraw() {
+//                pole2.getViewTreeObserver().removeOnPreDrawListener(this);
+//                brownHeight[0] = pole2.getMeasuredHeight();
+//                brownWidth[0] = pole2.getMeasuredWidth();
+////                tv.setText("Height: " + finalHeight + " Width: " + finalWidth);
+//                return true;
+//            }
+//        });
+
+//
+//        System.out.print("whiteWidth "+Integer.toString(whiteWidth[0][0]));
+//        System.out.print("whiteHeight "+Integer.toString(whiteHeight[0][0]));
+//        System.out.print("brownWidth "+Integer.toString(brownWidth[0]));
+//        System.out.print("brownHeight "+Integer.toString(brownHeight[0]));
         loadMusic();
 
         ConstraintLayout.LayoutParams pole4LeftParams = (ConstraintLayout.LayoutParams) pole4.getLayoutParams();
@@ -101,31 +133,30 @@ public class LearnNotes extends AppCompatActivity {
         int pole2leftMargin=pole2LeftParams.leftMargin;
         ConstraintLayout.LayoutParams pole1LeftParams = (ConstraintLayout.LayoutParams) pole1.getLayoutParams();
         int pole1leftMargin=pole1LeftParams.leftMargin;
-        int remainWhiteMargin=pole1leftMargin-whiteWidthOffset;
+        int remainWhiteMargin= whiteWidth[0] -whiteWidthOffset;
 
         int brownWidthOffset=pole3leftMargin-pole2leftMargin; //real width
 
         int totalWidth=0;
-        for(int i=0;i<poles.length;i++){
-            if(poles[i]==0){
-                totalWidth+=whiteWidth;
-            }else{
-                totalWidth+=brownWidth;
+        for(int i=0;i<poles.length;i++)
+            if (poles[i] == 0) {
+                totalWidth += whiteWidth[0];
+            } else {
+                totalWidth += brownWidth[0];
             }
-        }
-        float scale;
-        if(totalWidth>0){
-            scale=width/totalWidth;
-        }else{
-            scale=1;
-        }
+        float scale=1;
+//        if(totalWidth>0){
+//            scale=width/totalWidth;
+//        }else{
+//            scale=1;
+//        }
 
 
-        scaledWhiteWidth= (int) (whiteWidth*scale);
-        scaledWhiteHeight=(int)(whiteHeight*scale);
-        scaledBrownWidth=(int)(brownWidth*scale);
+        scaledWhiteWidth= (int) (whiteWidth[0] *scale);
+        scaledWhiteHeight=(int)(whiteHeight[0] *scale);
+        scaledBrownWidth=(int)(brownWidth[0] *scale);
 
-        scaledBrownHeight=(int)(brownHeight*scale);
+        scaledBrownHeight=(int)(brownHeight[0] *scale);
 
         scaledRemainWhiteMargin=(int)(remainWhiteMargin*scale);
         scaledBrownWidthOffset=(int)(brownWidthOffset*scale);//real height
@@ -159,14 +190,14 @@ public class LearnNotes extends AppCompatActivity {
 
             if(poles[i]==0){
                 poleAnchors.add(finalLeftMargin);
-                //createButton(idIndex,tempI,0,finalLeftMargin);
+                createButton(idIndex,tempI,0,finalLeftMargin);
 
                 dict.put("btn"+Integer.toString(i),idIndex);
                 finalLeftMargin+=scaledWhiteWidthOffset;
                 idIndex+=1;
             }else{
                 poleAnchors.add(finalLeftMargin);
-                //createButton(idIndex,tempI,1,finalLeftMargin);
+                createButton(idIndex,tempI,1,finalLeftMargin);
 
                 dict.put("btn"+Integer.toString(i),idIndex);
                 finalLeftMargin+=scaledBrownWidthOffset;
@@ -178,7 +209,7 @@ public class LearnNotes extends AppCompatActivity {
         //Create Texts
         tempI=0;
         for(int i=0;i<poles.length;i++){
-            if(poles[i]==1){
+            if(poles[i]==0){
                 createText(idIndex,tempI,poleAnchors.get(i));
                 dict.put("text"+Integer.toString(i),idIndex);
                 idIndex+=1;
@@ -189,7 +220,7 @@ public class LearnNotes extends AppCompatActivity {
         //Create Notes
         tempI=0;
         for(int i=0;i<poles.length;i++){
-            if(poles[i]==1){
+            if(poles[i]==0){
                 createNote(idIndex,tempI,poleAnchors.get(i));
                 dict.put("note"+Integer.toString(i),idIndex);
                 idIndex+=1;
@@ -202,12 +233,12 @@ public class LearnNotes extends AppCompatActivity {
         npc.setId(idIndex);
         dict.put("npc",idIndex);
         npc.setImageResource(R.drawable.littleblack);
-        ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(150,150);
+        ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(250,250);
         npc.setLayoutParams(parms);
         npc.setScaleType(ImageView.ScaleType.FIT_CENTER);
         //check
         npc.setX((float)(poleAnchors.get(0) -0.5*scaledWhiteWidth+75));
-        npc.setY(height-scaledWhiteHeight-150);
+        npc.setY(height-scaledWhiteHeight-100);
         constraintLayout.addView(npc);
 
         idIndex+=1;
@@ -231,12 +262,12 @@ public class LearnNotes extends AppCompatActivity {
         textView.setId(id);
         textView.setText(Integer.toString(texts[typeId]));
         textView.setTextSize(70);
-        textView.setTextColor(getResources().getColor(R.color.black));
+        textView.setTextColor(getResources().getColor(R.color.color4));
         textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
-        ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(100,100);
+        ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(150,150);
 
-        textView.setX((int)(leftMargin+0.5*scaledWhiteWidth-50));
-        textView.setY(200);
+        textView.setX((int)(leftMargin+0.5*scaledWhiteWidth-75));
+        textView.setY(height-200);
 
 //        parms.setMarginStart();
         textView.setLayoutParams(parms);
@@ -248,11 +279,11 @@ public class LearnNotes extends AppCompatActivity {
         ImageView note=new ImageView(this);
         note.setId(id);
         note.setImageResource(notes[typeId]);
-        ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(100,100);
+        ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(200,200);
         note.setLayoutParams(parms);
         note.setScaleType(ImageView.ScaleType.FIT_CENTER);
         //check
-        note.setX((float)(leftMargin+0.5*scaledWhiteWidth-50));
+        note.setX((float)(leftMargin+0.5*scaledWhiteWidth-100));
         note.setY(100);
 
         constraintLayout.addView(note);
@@ -277,27 +308,46 @@ public class LearnNotes extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void createButton(int id, final int typeId, int type, int leftMargin){
-        Button button = new Button(this);
+        ImageView button = new ImageView(this);
         button.setId(id);
-        ConstraintLayout btnConstraint=new ConstraintLayout(this);
 
-
-        ConstraintLayout.LayoutParams btnParams = new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+//        ConstraintLayout btnConstraint=new ConstraintLayout(this);
+//
+//
+//        ConstraintLayout.LayoutParams btnParams = new ConstraintLayout.LayoutParams(
+//                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
         if(type==0){
-            button.setWidth(scaledWhiteWidth);
-            button.setHeight(scaledWhiteHeight);
+
+            ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(scaledWhiteWidth,scaledWhiteHeight);
+            button.setLayoutParams(parms);
+            button.setBackgroundResource(R.drawable.white_pole);
+//            button.setBackgroundColor(getResources().getColor(R.color.color3));
+//            button.setImageResource(R.drawable.white_pole);
+            button.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            button.setX(leftMargin);
+            button.setY(height-scaledWhiteHeight);
+//            button.setWidth(scaledWhiteWidth);
+//            button.setHeight(scaledWhiteHeight);
 //            button.setBackgroundColor(getResources().getColor(R.color.transparent));
 
 //            Drawable drawable = getResources().getDrawable(R.drawable.white_pole);
 //            drawable = new ScaleDrawable(drawable, 0, scaledWhiteWidth, scaledWhiteHeight).getDrawable();
 //            drawable.setBounds(0, 0, scaledWhi teWidth, scaledWhiteHeight);
-            button.setBackground(getResources().getDrawable(R.drawable.white_pole));
+//            button.setBackground(getResources().getDrawable(R.drawable.white_pole));
 
         }else{
-            button.setWidth(scaledBrownWidth);
-            button.setHeight(scaledBrownHeight);
+
+            ConstraintLayout.LayoutParams parms = new ConstraintLayout.LayoutParams(scaledBrownWidth,scaledBrownHeight);
+            button.setLayoutParams(parms);
+//            button.setBackgroundColor(getResources().getColor(R.color.color3));
+            button.setBackgroundResource(R.drawable.brown_pole);
+//            button.setImageResource(R.drawable.brown_pole);
+            button.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            button.setX(leftMargin);
+            button.setY(height-scaledBrownHeight);
+//            button.setWidth(scaledBrownWidth);
+//            button.setHeight(scaledBrownHeight);
 //            button.setBackgroundColor(R.color.transparent);
 
 //            Drawable drawable = getResources().getDrawable(R.drawable.brown_pole);
@@ -305,23 +355,24 @@ public class LearnNotes extends AppCompatActivity {
 //            drawable.setBounds(0, 0, scaledBrownWidth, scaledBrownHeight);
 //            button.setBackground(drawable);
 //            button.setBackgroundResource(R.drawable.brown_pole);
-            button.setBackground(getResources().getDrawable(R.drawable.brown_pole));
+//            button.setBackground(getResources().getDrawable(R.drawable.brown_pole));
         }
 
 //            button.setText("Hello");
+//
+//        btnParams.setMarginStart(leftMargin);
+//
+//        ConstraintSet constraintSet = new ConstraintSet();
+//
+//        constraintSet.clone(btnConstraint);
+//
+//        constraintSet.connect(button.getId(),ConstraintSet.BOTTOM,R.id.root,ConstraintSet.BOTTOM,0);
+//        constraintSet.applyTo(btnConstraint);
+//
+//        btnConstraint.setLayoutParams(btnParams);
+//
+//        button.setLayoutParams(btnParams);
 
-        btnParams.setMarginStart(leftMargin);
-
-        ConstraintSet constraintSet = new ConstraintSet();
-
-        constraintSet.clone(btnConstraint);
-
-        constraintSet.connect(button.getId(),ConstraintSet.BOTTOM,R.id.root,ConstraintSet.BOTTOM,0);
-        constraintSet.applyTo(btnConstraint);
-
-        btnConstraint.setLayoutParams(btnParams);
-
-        button.setLayoutParams(btnParams);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -332,7 +383,6 @@ public class LearnNotes extends AppCompatActivity {
                 musicSoundPool.play(soundID.get(Id), 1, 1, 0, 0, 1);
                 ImageView npc=findViewById(dict.get("npc")); //get npc
                 ImageView note=findViewById(dict.get("note"+Integer.toString(Id)));
-
 
             }
 
