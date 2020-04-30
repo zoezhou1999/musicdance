@@ -1,8 +1,14 @@
 package com.example.zhouyuhong.musicdance;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.media.AudioManager;
@@ -18,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -195,22 +203,23 @@ public class LearnNotes extends AppCompatActivity {
                 dict.put("btn"+Integer.toString(i),idIndex);
                 finalLeftMargin+=scaledWhiteWidthOffset;
                 idIndex+=1;
+                tempI+=1;
             }else{
-                poleAnchors.add(finalLeftMargin);
+//                poleAnchors.add(finalLeftMargin);
                 createButton(idIndex,tempI,1,finalLeftMargin);
 
                 dict.put("btn"+Integer.toString(i),idIndex);
                 finalLeftMargin+=scaledBrownWidthOffset;
                 idIndex+=1;
             }
-            tempI+=1;
+
         }
 
         //Create Texts
         tempI=0;
         for(int i=0;i<poles.length;i++){
             if(poles[i]==0){
-                createText(idIndex,tempI,poleAnchors.get(i));
+                createText(idIndex,tempI,poleAnchors.get(tempI));
                 dict.put("text"+Integer.toString(i),idIndex);
                 idIndex+=1;
                 tempI+=1;
@@ -221,8 +230,8 @@ public class LearnNotes extends AppCompatActivity {
         tempI=0;
         for(int i=0;i<poles.length;i++){
             if(poles[i]==0){
-                createNote(idIndex,tempI,poleAnchors.get(i));
-                dict.put("note"+Integer.toString(i),idIndex);
+                createNote(idIndex,tempI,poleAnchors.get(tempI));
+                dict.put("note"+Integer.toString(tempI),idIndex);
                 idIndex+=1;
                 tempI+=1;
             }
@@ -308,7 +317,8 @@ public class LearnNotes extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void createButton(int id, final int typeId, int type, int leftMargin){
-        ImageView button = new ImageView(this);
+        final ImageView button = new ImageView(this);
+
         button.setId(id);
 
 //        ConstraintLayout btnConstraint=new ConstraintLayout(this);
@@ -335,6 +345,147 @@ public class LearnNotes extends AppCompatActivity {
 //            drawable = new ScaleDrawable(drawable, 0, scaledWhiteWidth, scaledWhiteHeight).getDrawable();
 //            drawable.setBounds(0, 0, scaledWhi teWidth, scaledWhiteHeight);
 //            button.setBackground(getResources().getDrawable(R.drawable.white_pole));
+
+            button.setOnClickListener(new View.OnClickListener() {
+                int Id=typeId;
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    musicSoundPool.play(soundID.get(Id), 1, 1, 0, 0, 1);
+                    final ImageView npc=findViewById(dict.get("npc")); //get npc
+                    final ImageView note=findViewById(dict.get("note"+Integer.toString(Id)));
+//                    Path path=new Path();
+//                    path.arcTo(npc.getX(),npc.getY(), (float) (poleAnchors.get(Id)-0.5*scaledWhiteWidth+75),height-scaledWhiteHeight-100,60f,120f,true);
+//
+//                    ObjectAnimator arcAnimator=ObjectAnimator.ofFloat(npc,View.X,View.Y,path);
+//                    arcAnimator.setDuration(2000);
+                    final float x1=npc.getX();
+                    ArcTranslateAnimation upAnimation = new ArcTranslateAnimation(0,(float) ((poleAnchors.get(Id)-0.5*scaledWhiteWidth+75-x1)/2), 0,-200);
+                    upAnimation.setDuration(500);
+                    upAnimation.setFillAfter(true);
+
+                    upAnimation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            TranslateAnimation dropAnimation = new TranslateAnimation(0,0, 0,(float)(height-scaledWhiteHeight-100-note.getY()));
+
+                            dropAnimation.setFillAfter(true);
+
+                            dropAnimation.setDuration(1000);
+                            dropAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    note.clearAnimation();
+                                    note.setY((float)(height-scaledWhiteHeight-100));
+                                    note.setImageDrawable(null);
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+
+                            note.startAnimation(dropAnimation);
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            npc.clearAnimation();
+                            npc.setX((float)((poleAnchors.get(Id) -0.5*scaledWhiteWidth+75+x1)/2));
+                            npc.setY(height-scaledWhiteHeight-300);
+
+                            ArcTranslateAnimation downAnimation = new ArcTranslateAnimation(0,(float) ((poleAnchors.get(Id)-0.5*scaledWhiteWidth+75-x1)/2), 0,200);
+                            downAnimation.setDuration(500);
+                            downAnimation.setFillAfter(true);
+
+                            downAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    npc.clearAnimation();
+                                    npc.setX((float)((poleAnchors.get(Id) -0.5*scaledWhiteWidth+75)));
+                                    npc.setY(height-scaledWhiteHeight-100);
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+
+                            });
+                            npc.startAnimation(downAnimation);
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+
+                    });
+                    npc.startAnimation(upAnimation);
+
+
+//                    ArcTranslateAnimation downAnimation = new ArcTranslateAnimation(0,(float) ((poleAnchors.get(Id)-0.5*scaledWhiteWidth+75-npc.getX())/2), 0,-200);
+//                    downAnimation.setDuration(500);
+//                    downAnimation.setFillAfter(true);
+//                    npc.startAnimation(upAnimation);
+//                    npc.setX((float)(poleAnchors.get(Id) -0.5*scaledWhiteWidth+75));
+//                    npc.setY(height-scaledWhiteHeight);
+
+
+//                    npc.startAnimation(animation);
+
+//
+//                    ObjectAnimator directAnimator=ObjectAnimator.ofFloat(note,"translationX",(float) (poleAnchors.get(Id) - (0.5 * scaledWhiteWidth)+ 75));
+//                    directAnimator.setDuration(2000);
+//
+//                    directAnimator.addListener(new AnimatorListenerAdapter() {
+//                        public void onAnimationEnd(ObjectAnimator animation) {
+//                            note.setImageDrawable(null);
+//                        }
+//                    });
+
+
+//
+//                    arcAnimator.start();
+//                    directAnimator.start();
+
+//                    ValueAnimator arcAnimator = ValueAnimator.ofFloat(0, 1); // values from 0 to 1
+//                    arcAnimator.setDuration(2000); // 5 seconds duration from 0 to 1
+//                    arcAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+//                    {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator animation) {
+//                            float value = ((Float) (animation.getAnimatedValue()))
+//                                    .floatValue();
+//                            // Set translation of your view here. Position can be calculated
+//                            // out of value. This code should move the view in a half circle.
+//                            npc.setTranslationX((float)(150.0 * Math.sin(value*Math.PI)));
+//                            npc.setTranslationY((float)(150.0 * Math.cos(value*Math.PI)));
+////                            note.set()
+//                        }
+//                    });
+//
+//                    arcAnimator.start();
+
+
+                }}
+            );
 
         }else{
 
@@ -375,18 +526,6 @@ public class LearnNotes extends AppCompatActivity {
 
 
 
-        button.setOnClickListener(new View.OnClickListener() {
-            int Id=typeId;
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                musicSoundPool.play(soundID.get(Id), 1, 1, 0, 0, 1);
-                ImageView npc=findViewById(dict.get("npc")); //get npc
-                ImageView note=findViewById(dict.get("note"+Integer.toString(Id)));
-
-            }
-
-        });
 
         constraintLayout.addView(button);
 
