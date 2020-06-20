@@ -1,10 +1,12 @@
 package com.example.zhouyuhong.musicdance;
 
 import android.animation.ArgbEvaluator;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,25 +16,23 @@ public class SelectingMenu extends AppCompatActivity {
     SlideCardAdapter adapter;
     List<SlideCardModel> models;
     Integer[] colors=null;
-    ArgbEvaluator argbEvaluator=new ArgbEvaluator();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selecting_menu);
         models = new ArrayList<>();
-        models.add(new SlideCardModel(0,R.drawable.coin,"coin","zoe",getResources().getColor(R.color.black50)));
+        models.add(new SlideCardModel(0,R.drawable.fairy_tail,"童话","光良",getResources().getColor(R.color.black50)));
 
-        models.add(new SlideCardModel(1,R.drawable.character,"character","zoe",getResources().getColor(R.color.black50)));
+        models.add(new SlideCardModel(1,R.drawable.meet,"遇见","孙燕姿",getResources().getColor(R.color.black50)));
 
-        models.add(new SlideCardModel(2,R.drawable.littleblack,"littleblack","zoe",getResources().getColor(R.color.black50)));
+        models.add(new SlideCardModel(2,R.drawable.sky_city,"伴随着你","久石让",getResources().getColor(R.color.black50)));
 
-        models.add(new SlideCardModel(3,R.drawable.coin,"coin","zoe",getResources().getColor(R.color.black50)));
+        models.add(new SlideCardModel(3,R.drawable.big_fish,"大鱼","尹约/钱雷",getResources().getColor(R.color.black50)));
 
-        models.add(new SlideCardModel(4,R.drawable.character,"character","zoe",getResources().getColor(R.color.black50)));
+        models.add(new SlideCardModel(4,R.drawable.if_i_stay,"夜空中最亮的星","逃跑计划",getResources().getColor(R.color.black50)));
 
-        models.add(new SlideCardModel(5,R.drawable.littleblack,"littleblack","zoe",getResources().getColor(R.color.black50)));
+        models.add(new SlideCardModel(5,R.drawable.spirted_away,"千与千寻","久石让",getResources().getColor(R.color.black50)));
 
 
         String section=getIntent().getStringExtra("section");
@@ -73,6 +73,13 @@ public class SelectingMenu extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void returnMainMenu(View view){
+
+        Intent intent=new Intent(this,MainMenu.class);
+        startActivity(intent);
+
     }
 
 }

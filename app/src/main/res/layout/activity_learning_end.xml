@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".LearningEnd">
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="428dp"
+        android:layout_marginLeft="428dp"
+        android:layout_marginTop="326dp"
+        android:src="@drawable/taskbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="508dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/againbtn" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="804dp"
+        android:layout_marginLeft="804dp"
+        android:layout_marginTop="508dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backhomebtn" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="100dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/note_cartoon" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="700dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="352dp"
+        android:layout_marginLeft="352dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/learningend" />
+
+    <TextView
+        android:id="@+id/next_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="560dp"
+        android:layout_marginLeft="560dp"
+        android:layout_marginTop="468dp"
+        android:text="任务挑战"
+        android:textColor="#412c1f"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/return_main_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="936dp"
+        android:layout_marginLeft="936dp"
+        android:layout_marginTop="648dp"
+        android:text="回到主页"
+        android:textColor="#412c1f"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/once_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginLeft="248dp"
+        android:layout_marginTop="656dp"
+        android:text="再学一遍"
+        android:textColor="#412c1f"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

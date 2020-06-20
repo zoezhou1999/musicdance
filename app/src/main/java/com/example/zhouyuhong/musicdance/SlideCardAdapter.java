@@ -1,20 +1,24 @@
 package com.example.zhouyuhong.musicdance;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SlideCardAdapter extends PagerAdapter {
@@ -47,7 +51,7 @@ public class SlideCardAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater=LayoutInflater.from(context);
-        View view=layoutInflater.inflate(R.layout.item,container,false);
+        final View view=layoutInflater.inflate(R.layout.item,container,false);
         ImageView imageView;
         TextView title,author,id;
         Integer color;
@@ -63,26 +67,27 @@ public class SlideCardAdapter extends PagerAdapter {
         author.setText(models.get(position).getAuthor());
         id.setText(String.valueOf(models.get(position).getId()));
         cardView.setCardBackgroundColor(models.get(position).getColor());
+        final String resId=String.valueOf(models.get(position).getId());
+
         view.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 final String[] levelItems={"简单","中等","困难"};
                 final String[] items1 = { "音符","节奏","和弦"};
 
-                CardView cardView=v.findViewById(R.id.cardView);
-                TextView textView=(TextView)cardView.findViewById(R.id.id);
-                int id=Integer.parseInt(textView.getText().toString());
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("选择细分模块");
-                builder.setCancelable(true);
-                LayoutInflater inflater = LayoutInflater.from(context);
-
-                final int[] level = new int[1];
-                level[0]=0;
                 System.out.print("section "+section);
                 if(section.equals("learning")){
+                    //************************************************************//
+                    //new version
 
+                    Intent intent=new Intent(context,LevelMap.class);
+                    intent.putExtra("section",section);
+                    intent.putExtra("resId",resId);
+                    context.startActivity(intent);
+
+                    //************************************************************//
+                    //old version
+/*
                     final int[] learingPart = new int[1];
                     learingPart[0]=0;
                     // Get the layout inflater
@@ -122,28 +127,12 @@ public class SlideCardAdapter extends PagerAdapter {
 
                     builder.setView(view);
 
-
-//                    builder.setSingleChoiceItems(items1, Integer.parseInt(null), new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            learingPart[0] = which;
-//                        }
-//                    });
-                            // Set the action buttons
-
-
                     builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
 
                         }});
 
-//                    builder.setSingleChoiceItems(levelItems, 0, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            level[0] = which;
-//                        }
-//                    });
 
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
@@ -154,15 +143,25 @@ public class SlideCardAdapter extends PagerAdapter {
                                 Intent intent=new Intent(context,LearnNotes.class);
 
                                 intent.putExtra("section", section);//String
-                                intent.putExtra("resId", id); //int
-                                intent.putExtra("learningPart", learingPart[0]); //int
-                                intent.putExtra("level", level[0]); //int
+                                intent.putExtra("resId", resId); //int
+                                intent.putExtra("learningPart", String.valueOf(learingPart[0])); //int
+                                intent.putExtra("level", String.valueOf(level[0])); //int
                                 context.startActivity(intent);
                             }
                         }
                     });
-
+*/
                 }else{
+
+                    //old one, Might Change
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("选择细分模块");
+                    builder.setCancelable(true);
+                    LayoutInflater inflater = LayoutInflater.from(context);
+
+                    final int[] level = new int[1];
+                    level[0]=0;
+
                     View view=inflater.inflate(R.layout.alert_playingcomposing, null);
 
                     RadioGroup rgroup2=(RadioGroup)view.findViewById(R.id.radiogroup2);
@@ -205,19 +204,19 @@ public class SlideCardAdapter extends PagerAdapter {
                                 Intent intent=new Intent(context,LearnNotes.class);
 
                                 intent.putExtra("section", section);//String
-                                intent.putExtra("resId", id); //int
-                                intent.putExtra("level", level[0]); //int
+                                intent.putExtra("resId", resId); //int
+                                intent.putExtra("level", String.valueOf(level[0])); //int
+                                intent.putExtra("learingPart", "None"); //int
                                 context.startActivity(intent);
 
                             }
                         }
                     });
 
+                    AlertDialog alert= builder.create();
+                    alert.show();
+
                 }
-
-                AlertDialog alert= builder.create();
-                alert.show();
-
 
             }
         });

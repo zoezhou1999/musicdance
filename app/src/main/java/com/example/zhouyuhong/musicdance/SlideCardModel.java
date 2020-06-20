@@ -9,7 +9,7 @@ public class SlideCardModel {
     public SlideCardModel(int id, int image, String title, String author, int color){
         this.id=id;
         this.image=image;
-        this.title=title;
+        this.title=String.valueOf(id+1)+". "+title;
         this.author=author;
         this.color=color;
     }

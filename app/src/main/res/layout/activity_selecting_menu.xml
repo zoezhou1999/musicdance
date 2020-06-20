@@ -14,7 +14,8 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/ic_arrow_back_black_100dp"/>
+        android:background="@drawable/ic_arrow_back_black_100dp"
+        android:onClick="returnMainMenu" />
 
 
     <SearchView

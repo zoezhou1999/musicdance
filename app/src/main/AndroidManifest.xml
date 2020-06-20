@@ -9,9 +9,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="landscape"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:supportsRtl="true">
         <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -21,14 +21,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".MainMenu"
             android:screenOrientation="landscape" />
         <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".SelectingMenu"
             android:screenOrientation="landscape"
             tools:ignore="DuplicateActivity" />
-        <activity android:name=".LearnNotes"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".LearnNotes"
+            android:screenOrientation="landscape" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".LearningEnd" android:screenOrientation="landscape"/>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".LevelMap" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

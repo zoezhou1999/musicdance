@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color4"
+    android:id="@+id/root"
+    tools:context=".LearnNotes3">
+
+
+    <ImageView
+        android:id="@+id/pole1_2"
+        android:layout_width="142dp"
+        android:layout_height="374dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginLeft="140dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/white_pole" />
+
+    <ImageView
+        android:id="@+id/pole2_2"
+        android:layout_width="142dp"
+        android:layout_height="374dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginLeft="216dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/white_pole" />
+
+    <ImageView
+        android:id="@+id/pole1_1"
+        android:layout_width="142dp"
+        android:layout_height="374dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/white_pole" />
+
+    <ImageView
+        android:id="@+id/pole2_1"
+        android:layout_width="142dp"
+        android:layout_height="310dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:adjustViewBounds="true"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:srcCompat="@drawable/brown_pole" />
+
+    <ImageView
+        android:id="@+id/npc"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="367dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="140dp"
+        android:layout_height="231dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:visibility="invisible"
+        android:adjustViewBounds="true"
+        android:background="@drawable/brown_pole"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="216dp" />
+
+    <ImageView
+        android:id="@+id/imageView26"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="516dp"
+        android:layout_marginLeft="516dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coin_count" />
+
+    <android.support.v4.view.ViewPager
+        android:foregroundGravity="center"
+        android:id="@+id/viewPager"
+        android:layout_centerInParent="true"
+        android:overScrollMode="never"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+    <ImageView
+        android:id="@+id/stop_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="1184dp"
+        android:layout_marginLeft="1184dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:onClick="enterStopPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/stop_btn" />
+
+
+    <com.daimajia.numberprogressbar.NumberProgressBar
+        android:id="@+id/number_progress_bar"
+        style="@style/NumberProgressBar_Default"
+        android:layout_width="400dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress_current="50"
+        app:progress_reached_bar_height="20dp"
+        app:progress_reached_color="@color/colorPrimaryDark"
+
+        app:progress_text_color="@color/black"
+        app:progress_text_size="30sp"
+        app:progress_unreached_bar_height="20dp"
+        app:progress_unreached_color="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/playcontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="音符"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/play_coin_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="656dp"
+        android:layout_marginLeft="656dp"
+        android:layout_marginTop="25dp"
+        android:text="0"
+        android:textColor="@color/orange"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="900dp"
+        android:layout_marginLeft="900dp"
+        android:layout_marginTop="30dp"
+        android:text="这个音是Do!"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</RelativeLayout>
