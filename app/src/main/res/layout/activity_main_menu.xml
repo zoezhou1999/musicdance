@@ -98,9 +98,10 @@
         android:id="@+id/textView5"
         android:layout_width="164dp"
         android:layout_height="182dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="144dp"
         android:layout_marginLeft="144dp"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="552dp"
         android:background="@drawable/board1"
         android:paddingTop="20dp"
         android:text="学习"
@@ -110,8 +111,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="学习"
-        android:layout_gravity="center_horizontal" />
+        tools:text="学习" />
 
     <TextView
         android:id="@+id/textView7"

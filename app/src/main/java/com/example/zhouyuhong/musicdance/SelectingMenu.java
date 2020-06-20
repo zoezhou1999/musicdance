@@ -11,11 +11,23 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectingMenu extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class SelectingMenu extends AppCompatActivity implements CustomAdapt {
     ViewPager viewPager;
     SlideCardAdapter adapter;
     List<SlideCardModel> models;
     Integer[] colors=null;
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

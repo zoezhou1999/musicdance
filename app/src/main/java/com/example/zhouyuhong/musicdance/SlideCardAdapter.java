@@ -19,14 +19,25 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import me.jessyan.autosize.internal.CustomAdapt;
 import java.util.List;
 
-public class SlideCardAdapter extends PagerAdapter {
+public class SlideCardAdapter extends PagerAdapter implements CustomAdapt{
     private List<SlideCardModel> models;
 
     private LayoutInflater layoutInflater;
     private Context context;
     private String section;
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
     public SlideCardAdapter(List<SlideCardModel> models, Context context,String section) {
         this.models = models;

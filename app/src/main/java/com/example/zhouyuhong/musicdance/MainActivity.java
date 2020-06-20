@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class MainActivity extends AppCompatActivity implements CustomAdapt {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,16 @@ public class MainActivity extends AppCompatActivity {
     public void enterMenu(View view){
         Intent intent=new Intent(this,MainMenu.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
     }
 
 }

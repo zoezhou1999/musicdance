@@ -10,7 +10,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainMenu extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class MainMenu extends AppCompatActivity implements CustomAdapt {
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

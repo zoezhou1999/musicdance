@@ -10,11 +10,23 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelMap extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class LevelMap extends AppCompatActivity implements CustomAdapt {
 
     ViewPager viewPager;
     LevelMapAdapter adapter;
     List<LevelMapModel> models;
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

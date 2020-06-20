@@ -5,7 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class LearningEnd extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class LearningEnd extends AppCompatActivity implements CustomAdapt {
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

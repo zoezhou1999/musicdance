@@ -36,7 +36,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LearnNotes extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class LearnNotes extends AppCompatActivity implements CustomAdapt {
     private RelativeLayout constraintLayout;
 
     private int width;
@@ -104,6 +106,17 @@ public class LearnNotes extends AppCompatActivity {
     int [] finalPoles={0,1,0,1,0,0,1,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,1,0};
     int targetNotePos;
     private float[] lastTouchDownXY = new float[2];
+
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
     @SuppressLint({"ResourceAsColor", "NewApi"})
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -557,7 +570,7 @@ public class LearnNotes extends AppCompatActivity {
             public void onClick(View v) {
                 dialog.dismiss();
 
-                Intent intent=new Intent(v.getContext(), LearnNotesCopy2.class);
+                Intent intent=new Intent(v.getContext(), LearnNotes.class);
 
                 intent.putExtra("section", section);//String
                 intent.putExtra("resId", String.valueOf(resId)); //int

@@ -18,13 +18,25 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class LevelMapAdapter extends PagerAdapter {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public class LevelMapAdapter extends PagerAdapter implements CustomAdapt {
     private List<LevelMapModel> models;
 
     private LayoutInflater layoutInflater;
     private Context context;
     private String section;
     private int resId;
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 900;
+    }
 
 
     public LevelMapAdapter(List<LevelMapModel> models, Context context, String section, int resId) {
