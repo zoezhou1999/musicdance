@@ -1,8 +1,10 @@
 package com.example.zhouyuhong.musicdance;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,10 +26,13 @@ public class MainMenu extends AppCompatActivity implements CustomAdapt {
         return 900;
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         setContentView(R.layout.activity_main_menu);
+
         TextView coinNum=findViewById(R.id.coin_num);
 
         SharedPreferences sharedpreferences = getSharedPreferences("myPreference",

@@ -1,7 +1,9 @@
 package com.example.zhouyuhong.musicdance;
 
 import android.animation.ArgbEvaluator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,9 +31,11 @@ public class SelectingMenu extends AppCompatActivity implements CustomAdapt {
         return 900;
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         setContentView(R.layout.activity_selecting_menu);
         models = new ArrayList<>();
         models.add(new SlideCardModel(0,R.drawable.fairy_tail,"童话","光良",getResources().getColor(R.color.black50)));

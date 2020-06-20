@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -119,11 +120,12 @@ public class LearnNotes extends AppCompatActivity implements CustomAdapt {
         return 900;
     }
 
-    @SuppressLint({"ResourceAsColor", "NewApi"})
+    @SuppressLint({"ResourceAsColor", "NewApi", "SourceLockedOrientationActivity"})
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         setContentView(R.layout.activity_learn_notes);
 
         buttonMap.put(1,R.id.pole1_1);buttonMap.put(2,R.id.pole1_2);buttonMap.put(3,R.id.pole1_3);
