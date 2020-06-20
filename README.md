@@ -1,11 +1,13 @@
-# Music Dance: A Music Game Imparting Music Knowledge On Android Platform
+## Music Dance: A Music Game Imparting Music Knowledge On Android Platform
 
-## Course Project
+### Course Project
 
 Code: Yuhongze Zhou
 
 Design: Xinwei Wu
 
 #### Acknowledgement
+Thank you for Xianming Qian's ideas of creation of this App during our discussion.
 
-Thank you for xianming Qian's ideas during creation of this App.
+![Our App](show.png)
+

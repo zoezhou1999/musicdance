@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -37,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.jessyan.autosize.internal.CustomAdapt;
-
+import android.os.SystemClock;
 public class LearnNotes extends AppCompatActivity implements CustomAdapt {
     private RelativeLayout constraintLayout;
 
@@ -318,11 +319,17 @@ public class LearnNotes extends AppCompatActivity implements CustomAdapt {
             ImageView btn=findViewById(entry.getValue());
             final int keyId=entry.getKey();
             btn.setOnClickListener(new View.OnClickListener() {
+
                                           int Id=keyId;
                                           int curId;
                                           @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                           @Override
                                           public void onClick(final View v) {
+                                              if(GlobalVariable.mLastClickTime==-1){
+                                                  GlobalVariable.mLastClickTime= SystemClock.elapsedRealtime();
+                                              }else if (SystemClock.elapsedRealtime() - GlobalVariable.mLastClickTime < 600) {
+                                                  return;
+                                              }
                                               musicSoundPool.play(soundID.get(Id), 1, 1, 0, 0, 1);
 //
                                               final TextView hintText=findViewById(R.id.hinttext);
